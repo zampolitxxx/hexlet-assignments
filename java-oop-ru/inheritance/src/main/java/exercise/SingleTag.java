@@ -1,7 +1,6 @@
 package exercise;
 
 import java.util.Map;
-import java.lang.StringBuilder;
 
 // BEGIN
 public class SingleTag extends Tag {
