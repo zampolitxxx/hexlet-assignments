@@ -11,12 +11,7 @@ public class SingleTag extends Tag {
 
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder("<");
-        sb.append(super.getTagName());
-        for(Map.Entry<String, String> me : super.getAttributes().entrySet()) {
-            sb.append(" " + me.getKey() + "=\"" + me.getValue() + "\"");
-        }
-        return sb.append(">").toString();
+        return "<" + super.getTagName();
     }
 }
 //"img", Map.of("class", "v-10", "id", "wop")
