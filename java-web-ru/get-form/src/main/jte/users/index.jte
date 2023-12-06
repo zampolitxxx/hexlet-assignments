@@ -17,7 +17,7 @@
     @for(var user : page.getUsers())
         <div>
             <h5>
-                ${user.getFirstName()}
+                ${user.getFirstName()} ${user.getLastName()}
             </h5>
         </div>
     @endfor

@@ -30,7 +30,6 @@ public final class App {
             } else {
                 users.addAll(USERS);
             }
-            System.out.println(users);
             var page = new UsersPage(users, term);
             ctx.render("users/index.jte", Collections.singletonMap("page", page));
         });
