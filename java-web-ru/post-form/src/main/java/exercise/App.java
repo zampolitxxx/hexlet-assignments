@@ -35,8 +35,8 @@ public final class App {
             var password = ctx.formParam("password");
             var passwordConfirmation = ctx.formParam("passwordConfirmation");
             if (password.equals(passwordConfirmation)) {
-                var user = new User(StringUtils.capitalize(firstName)
-                        , StringUtils.capitalize(lastName), email.toLowerCase().trim(), Security.encrypt(password));
+                var user = new User(StringUtils.capitalize(firstName),
+                        StringUtils.capitalize(lastName), email.toLowerCase().trim(), Security.encrypt(password));
                 UserRepository.save(user);
             }
             ctx.redirect("/users");
