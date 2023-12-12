@@ -3,6 +3,8 @@
 @template.layout.page(
 header = @`
     <h2>Пользователи</h2>
+    <h5><a href="/"> Main Page</a> </h5>
+    <h5><a href="/users/"> Пользователи </a> </h5>
     @for(var user : page.getUsers())
         <tr>
             <td>
