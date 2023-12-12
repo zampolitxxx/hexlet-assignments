@@ -33,12 +33,9 @@ public final class App {
             var lastName = ctx.formParam("lastName");
             var email = ctx.formParam("email");
             var password = ctx.formParam("password");
-            var passwordConfirmation = ctx.formParam("passwordConfirmation");
-            if (password.equals(passwordConfirmation)) {
-                var user = new User(StringUtils.capitalize(firstName),
+            var user = new User(StringUtils.capitalize(firstName),
                         StringUtils.capitalize(lastName), email.toLowerCase().trim(), Security.encrypt(password));
                 UserRepository.save(user);
-            }
             ctx.redirect("/users");
         });
 
