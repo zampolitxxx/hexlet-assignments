@@ -5,9 +5,7 @@ import exercise.dto.MainPage;
 import exercise.dto.LoginPage;
 import exercise.repository.UsersRepository;
 import static exercise.util.Security.encrypt;
-
 import exercise.util.NamedRoutes;
-import exercise.util.Security;
 import io.javalin.http.Context;
 import io.javalin.http.NotFoundResponse;
 
@@ -27,12 +25,14 @@ public class SessionsController {
             var nickname = ctx.formParamAsClass("nickname", String.class)
                     .check(UsersRepository::existsByName, "Wrong user or password")
                     .get();
-            var passwordHash = Security.encrypt(ctx.formParam("password"));
+            var passwordHash = encrypt(ctx.formParam("password"));
             var user = UsersRepository.findByName(nickname);
             if (user != null && user.getPassword().equals(passwordHash)) {
                 ctx.sessionAttribute("currentUser", nickname);
-                ctx.redirect("/");
-            } else throw new NotFoundResponse("Wrong username or password");
+                ctx.redirect(NamedRoutes.rootPath());
+            } else {
+                throw new NotFoundResponse("Wrong username or password");
+            }
         } catch (NotFoundResponse e) {
             var name = ctx.formParam("name");
             var page = new LoginPage(name, e.getMessage());
