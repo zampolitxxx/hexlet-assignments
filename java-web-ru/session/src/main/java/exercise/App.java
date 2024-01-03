@@ -14,10 +14,10 @@ public final class App {
         });
 
         // BEGIN
-        app.get(NamedRoutes.rootPath(), SessionsController::root);
+        app.get(NamedRoutes.rootPath(), SessionsController::show);
         app.get(NamedRoutes.buildSessionPath(), SessionsController::build);
         app.post(NamedRoutes.loginPath(), SessionsController::create);
-        app.post(NamedRoutes.logoutPath(), SessionsController::destroy);
+        app.post(NamedRoutes.logoutPath(), SessionsController::delete);
         // END
 
         return app;
