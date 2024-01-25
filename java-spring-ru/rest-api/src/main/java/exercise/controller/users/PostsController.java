@@ -1,8 +1,6 @@
 package exercise.controller.users;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.RestController;
@@ -29,6 +27,7 @@ public class PostsController {
     }
 
     @PostMapping("/users/{id}/posts")
+    @ResponseStatus(HttpStatus.CREATED)
     public Post create(@RequestBody Post post, @PathVariable String id) {
         post.setUserId(Integer.parseInt(id));
         posts.add(new Post());
