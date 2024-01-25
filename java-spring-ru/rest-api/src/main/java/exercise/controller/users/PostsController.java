@@ -19,18 +19,20 @@ import exercise.Data;
 @RequestMapping("/api")
 public class PostsController {
     List<Post> posts = Data.getPosts();
+
+    @ResponseStatus(HttpStatus.OK)
     @GetMapping("/users/{id}/posts")
-    public List<Post> index(@PathVariable String id) {
+    public List<Post> index(@PathVariable Integer id) {
         return posts.stream()
-                .filter(p -> p.getUserId() == Integer.parseInt(id))
+                .filter(p -> p.getUserId() == id)
                 .toList();
     }
 
     @PostMapping("/users/{id}/posts")
     @ResponseStatus(HttpStatus.CREATED)
-    public Post create(@RequestBody Post post, @PathVariable String id) {
-        post.setUserId(Integer.parseInt(id));
-        posts.add(new Post());
+    public Post create(@RequestBody Post post, @PathVariable Integer id) {
+        post.setUserId(id);
+        posts.add(post);
         return post;
     }
 }
