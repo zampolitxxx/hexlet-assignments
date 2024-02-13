@@ -25,7 +25,6 @@ import jakarta.validation.Valid;
 @RestController
 @RequestMapping("/products")
 public class ProductsController {
-    private final static String PRODUCT_NOT_FOUND = "Product with id %s not found";
     @Autowired
     private ProductRepository productRepository;
 
@@ -44,7 +43,7 @@ public class ProductsController {
     @GetMapping("/{id}")
     public ProductDTO show(@PathVariable long id) {
         var product = productRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException(String.format(PRODUCT_NOT_FOUND, id)));
+                .orElseThrow(() -> new ResourceNotFoundException(String.format("Product with id %s not found", id)));
 
         return productMapper.map(product);
     }
@@ -62,7 +61,7 @@ public class ProductsController {
     @PutMapping("/{id}")
     public ProductDTO update(@PathVariable long id, @Valid @RequestBody ProductUpdateDTO productData) {
         var product = productRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException(String.format(PRODUCT_NOT_FOUND, id)));
+                .orElseThrow(() -> new ResourceNotFoundException(String.format("Product with id %s not found", id)));
 
         productMapper.update(productData, product);
 
