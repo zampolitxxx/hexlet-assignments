@@ -1,11 +1,12 @@
 package exercise.controller;
 
-import java.util.List;
-
 import exercise.dto.ProductCreateDTO;
 import exercise.dto.ProductDTO;
 import exercise.dto.ProductUpdateDTO;
+import exercise.exception.ResourceNotFoundException;
 import exercise.mapper.ProductMapper;
+import exercise.repository.ProductRepository;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -18,13 +19,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import exercise.exception.ResourceNotFoundException;
-import exercise.repository.ProductRepository;
-import jakarta.validation.Valid;
+import java.util.List;
 
 @RestController
 @RequestMapping("/products")
 public class ProductsController {
+    private final static String PRODUCT_NOT_FOUND = "Product with id %s not found";
+
     @Autowired
     private ProductRepository productRepository;
 
@@ -43,7 +44,7 @@ public class ProductsController {
     @GetMapping("/{id}")
     public ProductDTO show(@PathVariable long id) {
         var product = productRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException(String.format("Product with id %s not found", id)));
+                .orElseThrow(() -> new ResourceNotFoundException(String.format(PRODUCT_NOT_FOUND, id)));
 
         return productMapper.map(product);
     }
@@ -61,7 +62,7 @@ public class ProductsController {
     @PutMapping("/{id}")
     public ProductDTO update(@PathVariable long id, @Valid @RequestBody ProductUpdateDTO productData) {
         var product = productRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException(String.format("Product with id %s not found", id)));
+                .orElseThrow(() -> new ResourceNotFoundException(String.format(PRODUCT_NOT_FOUND, id)));
 
         productMapper.update(productData, product);
 

@@ -13,12 +13,11 @@ import jakarta.persistence.EntityManager;
         componentModel = MappingConstants.ComponentModel.SPRING
 )
 public abstract class ReferenceMapper {
-
     @Autowired
-    private EntityManager entityManager;
+    private EntityManager manager;
 
     public <T extends BaseEntity> T toEntity(Long id, @TargetType Class<T> entityClass) {
-        return id != null ? entityManager.find(entityClass, id) : null;
+        return id != null ? manager.find(entityClass, id) : null;
     }
 }
 // END
